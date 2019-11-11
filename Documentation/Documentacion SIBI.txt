@@ -1,0 +1,52 @@
+09/11/2019 -> Conectar Neo4j a mi applicacion html = graphAware-Neo4j-php-clien
+	Descargar composer.
+https://styde.net/que-es-composer-y-como-usarlo/
+https://neo4j.com/developer/php/
+https://github.com/graphaware/neo4j-php-client
+
+	1ºDescargar composer
+	2ºAñadir al projecto un archivo composer.json
+	3º Añadir
+		{ "require":{"graphaware/neo4j-php-client": "^4.0"}}
+				package name:version
+	Abrir Consola de comandos (CMD)
+	Avanzar hasta el directorio del proyecto (en este caso c:/xampp/htdocs/libreria)
+	Ejecutar composer install
+
+Concetar Neo4j como base de datos de mi sitio WEB:
+
+require_once 'vendor/autoload.php';
+
+use GraphAware\Neo4j\Client\ClientBuilder;
+
+$client = ClientBuilder::create()
+    ->addConnection('default', 'http://neo4j:password@localhost:7474') // Example for HTTP connection configuration (port is optional)
+    ->build();
+
+Construir una query
+$query= "MATCH (n:LABEL) RETURN n" (Utilizamos la sintaxis de cypher)
+
+$result = $client->run('MATCH (n:Person) RETURN n');
+// a result always contains a collection (array) of Record objects
+
+// get all records
+$records = $result->getRecords();
+
+// get the first or (if expected only one) the only record
+
+$record = $result->getRecord();
+
+$result->firstRecord(); // Returns the first record of the Statement Result
+
+foreach ($result->records() as $record) {
+    print_r($record->get('n')); // nodes returned are automatically hydrated to Node objects
+
+    echo $record->value('name') . PHP_EOL;
+    echo $record->value('age') . PHP_EOL;
+}
+
+$query = "MATCH (n:WRITER {name:'William Shakespeare' }) RETURN n.name as name";
+    //manda la query y la guarda en $result
+    $result = $client->run($query);
+    $record = $result->getRecord();
+    echo $record->value('name');
