@@ -1,0 +1,22 @@
+
+
+LOAD CSV WITH HEADERS FROM 'file:///GoodReads.csv' AS line FIELDTERMINATOR ';'
+MERGE(w:WRITER {name:line.Writer})
+MERGE(b:BOOK {title:line.Title, pages:line.Pages, rating:line.Rating, rating_count:line.Rating_Count, review_count:line.Review_Count} )
+MERGE(w)-[:WROTE]->(b)
+
+LOAD CSV WITH HEADERS FROM 'file:///GoodReads.csv' AS line FIELDTERMINATOR ';'
+UNWIND split(line.Genre, '|') AS genres
+MERGE(w:WRITER {name:line.Writer})
+MERGE(b:BOOK {title:line.Title, pages:line.Pages, rating:line.Rating, rating_count:line.Rating_Count, review_count:line.Review_Count} )
+MERGE(g:GENRE {genre: genres})
+MERGE(w)-[:WROTE]->(b)
+MERGE (b)-[:IS]->(g)
+
+LOAD USERS
+LOAD CSV WITH HEADERS FROM 'file:///USERS.csv' AS line FIELDTERMINATOR ';'
+MERGE(n:READER {name:line.USERS1})
+MERGE(m:READER {name:line.USERS2})
+RETURN n,m
+
+LOAD RELATIONSHIPS USER -> BOOKS

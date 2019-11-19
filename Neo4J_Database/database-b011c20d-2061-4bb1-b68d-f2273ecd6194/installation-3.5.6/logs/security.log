@@ -42,3 +42,26 @@
 2019-11-11 17:16:06.401+0000 INFO  [neo4j]: logged in
 2019-11-11 17:16:06.410+0000 INFO  [neo4j]: logged in
 2019-11-11 17:47:49.674+0000 INFO  [neo4j]: logged in
+2019-11-11 20:46:03.841+0000 INFO  [neo4j]: logged in
+2019-11-13 16:08:30.920+0000 INFO  [neo4j]: logged in
+2019-11-13 16:08:31.395+0000 INFO  [neo4j]: logged in
+2019-11-13 16:08:46.263+0000 ERROR []: failed to log in: invalid principal or credentials
+2019-11-13 16:08:46.623+0000 INFO  [neo4j]: logged in
+2019-11-13 16:08:47.540+0000 INFO  [neo4j]: logged in
+2019-11-13 16:08:47.559+0000 INFO  [neo4j]: logged in
+2019-11-13 16:08:47.589+0000 INFO  [neo4j]: logged in
+2019-11-13 17:08:51.622+0000 INFO  [neo4j]: logged in
+2019-11-13 17:35:53.502+0000 INFO  [neo4j]: logged in
+2019-11-18 16:38:11.706+0000 INFO  [neo4j]: logged in
+2019-11-18 16:38:12.184+0000 INFO  [neo4j]: logged in
+2019-11-18 16:38:22.529+0000 INFO  [neo4j]: logged in
+2019-11-18 16:38:23.388+0000 INFO  [neo4j]: logged in
+2019-11-18 16:38:23.419+0000 INFO  [neo4j]: logged in
+2019-11-18 16:38:23.446+0000 INFO  [neo4j]: logged in
+2019-11-18 17:38:29.076+0000 INFO  [neo4j]: logged in
+2019-11-18 17:38:29.805+0000 INFO  [neo4j]: logged in
+2019-11-18 17:39:10.077+0000 INFO  [neo4j]: logged in
+2019-11-19 14:04:54.125+0000 INFO  [neo4j]: logged in
+2019-11-19 14:06:18.476+0000 INFO  [neo4j]: logged in
+2019-11-19 15:05:00.857+0000 INFO  [neo4j]: logged in
+2019-11-19 15:36:55.878+0000 INFO  [neo4j]: logged in
