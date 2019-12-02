@@ -1,9 +1,40 @@
 * {
-    //background-color: aqua;  
+    //background-color: aqua;
 }
 
-div {
-    text-align: center;
-    border-style: dotted;
-    align-content: center;
+.body {
+  border: 1px solid black;
+}
+
+.inside {
+  float:left;
+}
+
+.vertical {
+  float:none;
+}
+
+.space {
+  float: left;
+  width: 20px;
+  length: 100px;
+  background-color: aqua;
+}
+.horizontal {
+  foat:right;
+}
+
+table {
+  text-align: center;
+  align-content: center;
+  border: 1px solid black
+
+}
+th {
+  background-color: DodgerBlue;
+  border-style: solid;
+}
+
+td {
+  background-color: MediumSeaGreen;
 }
