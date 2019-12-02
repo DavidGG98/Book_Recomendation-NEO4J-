@@ -25,7 +25,7 @@
     * at the end, all the empy columns are placed to 0
     */
     $row=0; //Users in $userlist
-
+    $userBooks=0;
     foreach ($userlist as $u) {
       //Get all the books for the user
       $query=getBooks($u);
@@ -45,6 +45,9 @@
         }
       }
       $row++;
+      if($u==$user) {
+        $userBooks=count($booklist);
+      }
     }
     //Place 0 (not READ) in every gap with no array_count_values
     $rows=count($userlist);
@@ -54,17 +57,61 @@
       for ($c=0; $c<$columns; $c++) {
         if(!array_key_exists($c, $aux)) {
           $gradematrix[$r][$c]=0;
-          //echo "El usuario $r no ha leido el libro $c, por lo que se le añade un 0 <br";
+          //echo "El usuario $r no ha leido el libro $c, por lo que se le añade un 0 <br>";
         }
       }
     }
-    //Matriz de predicciones
-    $predictions=array();
-    for ($r=0;$r<$columns;$r++) {
-      for($c=1;$c<$rows;$c++) {
 
+    //Matriz de predicciones
+    $finalGrade=array();
+    for($c=0;$c<$columns;$c++) {//Por cada producto
+      if($gradematrix[0][$c]== 0) { //Si el usuario no lo ha puntuado
+        $ncomp=array (); //Usuarios que compararon el producto con otro X
+        $diff=array (); //Diferencia marcas de los productos
+        $m=array();
+        $l=array(); //Array con los objetos valorados
+
+        for ($c2=0;$c2<$userBooks;$c2++) { //por cada producto a comparar
+          if ($c2 != $c) { //No comparamos con nosotros mismos
+            //comprobamos que el usuario inicial ha valorado el producto a comparar
+          $n=0; //Personas que compararon = 0
+            for ($r=1;$r<$rows;$r++) { //Por cada usuario
+              if($gradematrix[$r][$c] != 0 && $gradematrix[$r][$c2] != 0 ) { //El usuario ha puntuado ambos productos
+                //Comparamos la nota de ambos productos para ese usuario y la sumamos al total
+                //Añadimos un usuario al total de usuarios que compararon
+                $n++;
+                array_push($diff,$gradematrix[$r][$c] - $gradematrix[$r][$c2]); //introducimos la diferencia en el array
+
+              }
+            }
+            if($n!=0){
+              $d=array_sum($diff)/$n;
+              $d2=(array_sum($diff)/$n)+$gradematrix[0][$c2];
+              //echo " comparación $c,$c2: NºUsers= $n, media dif=$d, total=$d2 <br>";
+              array_push($m,(array_sum($diff)/$n)+$gradematrix[0][$c2]); //media de las diferencias + puntuacion
+              array_push($ncomp, $n); //Cargamos las personas que compararon
+            }
+          }
+        }
+      //Acabamos de comparar todos los productos
+      $prediction=0;
+      for($i=0;$i<count($m);$i++) {
+        $prediction=$m[$i]*$ncomp[$i] + $prediction;
       }
+      $prediction=$prediction/array_sum($ncomp);
+      if($prediction > "5") {
+        $prediction=5;
+        $gradematrix[0][$c]=$prediction;
+      } else if ($prediction < "1") {
+        $prediction=1;
+        $gradematrix[0][$c]=$prediction;
+      } else {
+      $gradematrix[0][$c]=$prediction;
     }
+    }
+  }
+
+
 
 ?>
 <html>
@@ -80,6 +127,7 @@
     <table>
       <tr>
         <td></td>
+        <td></td>
       <?php foreach ($userlist as $u) { ?>
 
         <td>
@@ -90,7 +138,7 @@
 
 <?php $n=0; foreach ($booklist as $u) { ?>
       <tr>
-
+          <td> <?php echo  $n ?> </td>
           <td> <?php echo  $u ?> </td>
           <?php for ($c=0;$c<$rows;$c++) { ?>
             <td> <?php echo $gradematrix[$c][$n] ?> </td>

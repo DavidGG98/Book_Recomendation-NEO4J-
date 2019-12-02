@@ -18,7 +18,7 @@
       return "MATCH (n:READER {name:'$user'})-[r]-(b)-[r2]-(m:READER)
       WHERE r2.grade= r.grade+1 OR r2.grade=r.grade OR r2.grade= r.grade-1
       RETURN DISTINCT m
-      LIMIT 3";
+      LIMIT 15";
     }
 
 

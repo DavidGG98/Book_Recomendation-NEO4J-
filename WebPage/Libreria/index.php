@@ -23,13 +23,10 @@ header("Expires: Sat, 1 Jul 2000 05:00:00 GMT"); // Fecha en el pasado
     */
 
  ?>
-
-
-
 <html>
 
 <head>
-    <title> Pruebas </title>
+    <title> Index </title>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="styles.css?v=<?php echo(rand()); ?>" />
 
@@ -68,7 +65,6 @@ header("Expires: Sat, 1 Jul 2000 05:00:00 GMT"); // Fecha en el pasado
         <th> Libros </th>
       </thead>
     <tbody>
-
       <?php
         $count = 1;
         //Recogemos todos los Usuarios
