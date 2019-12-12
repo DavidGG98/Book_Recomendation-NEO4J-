@@ -9,7 +9,11 @@
   $client = ClientBuilder::create()
       ->addConnection('default', 'http://neo4j:david98@localhost:7474')
       ->build();
+if(!isset($_GET['user'])) {
+    $user='David Gonzalez';
+}else {
     $user=$_GET['user'];
+}
     $query=getNeighbors($user);
     $result=$client->run($query);
 
@@ -154,7 +158,7 @@
 
       </tr>
               <?php $n++; } ?>
-
+      </table>
   </div>
 </body>
 </html>

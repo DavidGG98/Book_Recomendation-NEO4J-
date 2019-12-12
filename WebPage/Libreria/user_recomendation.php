@@ -9,7 +9,12 @@
   $client = ClientBuilder::create()
       ->addConnection('default', 'http://neo4j:david98@localhost:7474')
       ->build();
+     if(isset($_GET['user']) ){
+
     $user=$_GET['user'];
+  } else {
+    $user='David Gonzalez'; //Default user
+  }
     $query=getNeighbors($user);
     $result=$client->run($query);
 
@@ -47,6 +52,7 @@
       $row++;
       if($u==$user) {
         $userBooks=count($booklist);
+        echo "numero de libros para el primer user $userBooks <br>";
       }
     }
     //Place 0 (not READ) in every gap with no array_count_values
@@ -63,6 +69,7 @@
     }
 
     //Matriz de predicciones
+    echo "Numero de libros=$columns <br>";
     $finalGrade=array();
     for($c=0;$c<$columns;$c++) {//Por cada producto
       if($gradematrix[0][$c]== 0) { //Si el usuario no lo ha puntuado
@@ -95,15 +102,21 @@
         }
       //Acabamos de comparar todos los productos
       $prediction=0;
+    //  echo"Comparación libro $c <br>";
       for($i=0;$i<count($m);$i++) {
         $prediction=$m[$i]*$ncomp[$i] + $prediction;
+    //    echo "$prediction <br>";
       }
       $prediction=$prediction/array_sum($ncomp);
       if($prediction > "5") {
-        $prediction=5;
+  //      echo "$prediction es mayor que 5 <br>";
+  //      $prediction=5;
+  //      echo " Ajuste a $prediction <br>";
         $gradematrix[0][$c]=$prediction;
       } else if ($prediction < "1") {
+    //      echo "$prediction es menor que 1 <br>";
         $prediction=1;
+    //      echo "ajuste a $prediction  <br>";
         $gradematrix[0][$c]=$prediction;
       } else {
       $gradematrix[0][$c]=$prediction;
@@ -146,7 +159,7 @@
 
       </tr>
               <?php $n++; } ?>
-
+      </table>
   </div>
 </body>
 </html>

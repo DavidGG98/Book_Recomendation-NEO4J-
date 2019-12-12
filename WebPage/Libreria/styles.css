@@ -1,28 +1,153 @@
 * {
-    //background-color: aqua;
+    //background-color: white;
+    padding: 0;
+    margin: 0;
+
+}
+#main {
+    
+    width:100%;
+    height:99.9%;
+    //border: 4px solid darkgreen;
+    overflow: hidden;
+}
+#topbar {
+    //border: 5px dotted darkmagenta;
+    background-color: darkgray;
+    height: 15%;
+    width: 100%;
+    position: sticky;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 60;
+    //margin-bottom: 1%;
 }
 
-.body {
-  border: 1px solid black;
+#lateralmenu {
+    //border: 5px solid red;
+    float: left;
+    height: 85%;
+    width: 15%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
 }
 
-.inside {
-  float:left;
+#body {
+    float:left;
+    //border: 5px dotted darkmagenta;
+    margin: 0;
+    padding-left: 2.5%;
+    padding-top: 2.5%;
+    display: flex;
+    overflow-y: scroll;
+    height: auto;
+    width: 82%;
+    height: 80%;
+
 }
 
-.vertical {
-  float:none;
+#bottom {
+    //border: 5px dotted darkmagenta;
 }
 
-.space {
-  float: left;
-  width: 20px;
-  length: 100px;
-  background-color: aqua;
+div.left {
+    float:left;
 }
-.horizontal {
-  foat:right;
+
+div.right {
+    float:right
 }
+
+div {
+    //border: 5px dotted blue;
+}
+
+.clickbutton:link, a.linkbutton:visited {
+    border: 4px solid darkgreen;
+    color: black;
+    padding: 10px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.clickbutton:hover   {
+    background-color: limegreen;
+    color:white;
+}
+
+.clickbutton:active {
+    background-color: darkgreen;
+}
+
+a.linkbutton:link, a.linkbutton:visited {
+    
+    border: 4px solid darkgreen;
+    color: black;
+    padding: 10px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+}
+a.linkbutton:hover   {
+    background-color: limegreen;
+    color:white;
+}
+
+a.linkbutton:active {
+    background-color: darkgreen;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+ul.menu {
+
+list-style-type: none;
+margin: 0;
+padding: 0;
+width: 100%;
+background-color: black;
+height: 100%;
+
+
+}
+ul.menu li {
+    color:white;
+    padding-left: 0;
+    padding-top: 0;
+    padding-bottom: 0px;
+    padding-right: 0px;
+    
+}
+
+ul.menu li:hover {
+    background-color: dimgrey;
+
+}
+
+ul.menu li a{
+  display: block;
+  color: white;
+  padding: 8px 16px;
+  text-decoration: none;
+}
+
+ul.menu li a.active{
+  background-color: #4CAF50;
+  color: white;
+}
+
+input[type=text]:focus {
+  border: 3px solid #555;
+}
+
+
 
 table {
   text-align: center;
@@ -30,6 +155,7 @@ table {
   border: 1px solid black
 
 }
+
 th {
   background-color: DodgerBlue;
   border-style: solid;
@@ -37,4 +163,6 @@ th {
 
 td {
   background-color: MediumSeaGreen;
+    text-align: left;
+    padding-right: 5px;
 }
