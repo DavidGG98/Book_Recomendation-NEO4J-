@@ -92,7 +92,7 @@
       $row++;
       if($u==$user) {
         $n=count($booklist);
-        //echo "numero de libros para el primer user $n <br>";
+        echo "numero de libros para el primer user $n <br>";
       }
     }
     //Place 0 (not READ) in every gap with no array_count_values
@@ -166,6 +166,10 @@
     unset($count);
     unset($coeficiente);
 
+    foreach ($top as $t) {
+        echo "<br> TOPUSER ",$t[0], " coef=", $t[1];
+    }
+
     /*
      * Hemos obtenido los mejores X candidatos siendo $top[x] el numero de candidato y
      * $top [x] [y] el coeficiente para dicho candidato.
@@ -192,7 +196,7 @@
     $row++;
     foreach ($top as $u) { //Para cada usuario del top
       //Get all the books for the user
-    //echo "<br> Cargamos las notas de ",  $userlist[$u[0]], "<br>";
+        echo "<br> Cargamos las notas de ",  $userlist[$u[0]], "<br>";
       $query=getBooks($userlist[$u[0]]);
       $result=$client->run($query);
       foreach ($result->getRecords() as $records) {
@@ -229,9 +233,10 @@
      */
 
     //Matriz de predicciones
-    //echo "El usuario ha leido $n libros";
+    echo "Libros usuario:$n";
+    echo "Numero de libros=$columns <br>";
     $finalGrade=array();
-    for($c=$n;$c<$columns;$c++) {//Por cada producto
+    for($c=0;$c<$columns;$c++) {//Por cada producto
       if($gradematrix[0][$c]== 0) { //Si el usuario no lo ha puntuado
         $ncomp=array (); //Usuarios que compararon el producto con otro X
         $diff=array (); //Diferencia marcas de los productos
@@ -239,45 +244,41 @@
         $l=array(); //Array con los objetos valorados
 
         for ($c2=0;$c2<$n;$c2++) { //por cada producto a comparar
-            //echo "<br> Comparamos $c (Nuevo) con $c2 <br>";
+            
           if ($c2 != $c) { //No comparamos con nosotros mismos
 
             //comprobamos que el usuario inicial ha valorado el producto a comparar
             $num=0; //Personas que compararon = 0
             $r=1;
             foreach ($top as $t) { //Por cada usuario
-                
-                $a=$gradematrix[0][$c2] ;
-                $b=$gradematrix[$r][$c2] ;
-                echo " $a - $b <br>";
               if($gradematrix[$r][$c] != 0 && $gradematrix[$r][$c2] != 0 ) { //El usuario ha puntuado ambos productos
-                    if(($a-$b)==0 or ($a-$b)==1 or ($a-$b)==-1) {
+                
+                //Comparamos la nota de ambos productos para ese usuario y la sumamos al total
+                //Añadimos un usuario al total de usuarios que compararon
+                $num++;
+                array_push($diff,$gradematrix[$r][$c] - $gradematrix[$r][$c2]); //introducimos la diferencia en el array
 
-                    //Comparamos la nota de ambos productos para ese usuario y la sumamos al total
-                    //Añadimos un usuario al total de usuarios que compararon
-                    $num++;
-                    array_push($diff,$gradematrix[$r][$c] - $gradematrix[$r][$c2]); //introducimos la diferencia en el array
-                  }
               } 
                 $r++;
             }
             if($num!=0){
               $d=array_sum($diff)/$num;
               $d2=(array_sum($diff)/$num)+$gradematrix[0][$c2];
+              //echo " comparación $c,$c2: NºUsers= $n, media dif=$d, total=$d2 <br>";
               array_push($m,(array_sum($diff)/$n)+$gradematrix[0][$c2]); //media de las diferencias + puntuacion
               array_push($ncomp, $num); //Cargamos las personas que compararon
             
             }
           } 
-            
         }
       //Acabamos de comparar todos los productos
       $prediction=0;
     //  echo"Comparación libro $c <br>";
       for($i=0;$i<count($m);$i++) {
-        $prediction=($m[$i]*$ncomp[$i])*(1+$ncomp[$i]/$MAXUSERS) + $prediction;
+        $prediction=$m[$i]*$ncomp[$i] + $prediction;
     //    echo "$prediction <br>";
       }
+      
       $prediction=$prediction/array_sum($ncomp);
       if($prediction > "5") {
   //      echo "$prediction es mayor que 5 <br>";
@@ -307,69 +308,31 @@
 </head>
 
 <body>
+  <div class="body">
+    <table>
+      <tr>
+        <td></td>
+        <td></td>
+          <td> <?php echo $user ?></td>
+      <?php foreach ($top as $u) { ?>
 
-    <div id="main">
+        <td>
+      <?php echo  $userlist[$u[0]] ?>
+    </td>
+      <?php } ?>
+</tr>
 
-        <div id="topbar"> Recomiendame un libro </div>
+<?php $n=0; foreach ($booklist as $u) { ?>
+      <tr>
+          <td> <?php echo  $n ?> </td>
+          <td> <?php echo  $u ?> </td>
+          <?php for ($c=0;$c<($MAXUSERS+1);$c++) { ?>
+            <td> <?php echo $gradematrix[$c][$n] ?> </td>
+          <?php } ?>
 
-        <div id="lateralmenu">
-
-            <ul class="menu">
-                <li> <a href="index.php"> Home </a> </li>
-                <li> <a class="active" href="user_list.php"> Lectores </a> </li>
-                <li> <a href="book_list.php"> Libros </a> </li>
-                <li> <a href="genre_list.php"> Generos </a> </li>
-                <li> <a href="writer_list.php"> Escritores </a> </li>
-                <li> <a href="index.php"> Contacto </a> </li>
-            </ul>
-        </div>
-
-        <div id="body">
-            <div>
-                <p>Recomendación de <?php echo $user ?> </p>
-                <p> <a class="clickbutton" href="user_profile.php?user=<?php echo $user ?>"> Volver </a></p><br>
-                
-            <div style="height:90%; overflow-y:scroll">
-            <table>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td> <?php echo $user ?></td>
-                    <?php foreach ($top as $u) { ?>
-
-                    <td>
-                        <?php echo  $userlist[$u[0]] ?>
-                    </td>
-                    <?php } ?>
-                </tr>
-
-                <?php $m=0; foreach ($booklist as $u) { ?>
-                <tr>
-                    <?php if ($m<$n) { ?>
-                    <td class="user"> <?php echo  $m ?> </td>
-                    <td class="user"> <?php echo  $u ?> </td>
-    
-                    <?php } else { ?>
-                    <td> <?php echo  $m ?> </td>
-                    <td> <?php echo  $u ?> </td>
-                    <?php } for ($c=0;$c<($MAXUSERS+1);$c++) { 
-    
-                    if ($gradematrix[$c][$m] == 0) {?>
-                        <td class="zero"> <?php echo $gradematrix[$c][$m] ?> </td>
-                    <?php } else { ?>
-                    <td> <?php echo $gradematrix[$c][$m] ?> </td>
-                    <?php } } ?>
-
-                </tr>
-                <?php $m++; } ?>
-            </table>
-            </div>
-                </div>
-            <div style="float:right"> Los libros mejor puntuados para este usuario son:</div>
-        </div>
-    </div>
-
-
+      </tr>
+              <?php $n++; } ?>
+      </table>
+  </div>
 </body>
-
 </html>

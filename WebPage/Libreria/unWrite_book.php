@@ -10,18 +10,32 @@
 
     $message="";
     //Guardamos el usuario que está haciendo la petición
-if (isset($_POST['register'])) {
-    $user= $_POST['user'];   
-    $book= $_POST['book'];
+    if(isset($_POST['writer']) and isset($_POST['book'])) {
+    if($_POST['writer']!="") {
+        if($_POST['book']!="") {
+            $user= $_POST['writer'];   
+            $book= $_POST['book'];
 
 
-    //$query=unWriteBook($user,$book);
- try {
-    //$result=$client->run($query);
-    } catch (Exception $e){
-        echo "ERROR";
+            $query=unWriteBook($user,$book);
+         try {
+            $result=$client->run($query);
+            } catch (Exception $e){
+                echo "ERROR";
+            }
+
+
+           header("Location: writer_profile.php?user=$writer");
+
+    } else {
+        echo "<p style='color:red'> ERROR, Se necesita un libro ";
     }
-}
-
-   header("Location: user_profile.php?user=$user")
+        
+    } else {
+        echo "<p style='color:red'> ERROR, Se necesita un escritor ";
+    }
+    
+    } else {
+        echo "<p style='color:red'> ERROR, se necesitan argumentos ";
+    }
 ?>

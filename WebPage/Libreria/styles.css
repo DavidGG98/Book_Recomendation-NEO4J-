@@ -39,8 +39,9 @@
     float:left;
     //border: 5px dotted darkmagenta;
     margin: 0;
-    padding-left: 2.5%;
-    padding-top: 2.5%;
+    padding-left: 3%;
+    padding-top: 3%;
+    padding-bottom: 3%;
     display: flex;
     overflow-y: scroll;
     height: auto;
@@ -165,4 +166,12 @@ td {
   background-color: MediumSeaGreen;
     text-align: left;
     padding-right: 5px;
+}
+
+td.zero {
+    background-color: lightcoral;
+}
+
+td.user {
+    background-color: lightblue;
 }

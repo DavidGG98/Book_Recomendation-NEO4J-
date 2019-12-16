@@ -10,17 +10,17 @@
       ->addConnection('default', 'http://neo4j:david98@localhost:7474')
       ->build();
 
-  if(isset($_GET['user']) ){
+  if(isset($_GET['user']) && $_GET['user']!="" ){
 
-    $user=$_GET['user'];
+    $writer=$_GET['user'];
       
   } else {
-    $user='A.A. Milne'; //Default user
+    $writer='A.A. Milne'; //Default user
   }
 
 
 
-  $query=getWrittenBooks($user);
+  $query=getWrittenBooks($writer);
   $result=$client->run($query);
 
   //Array de libros del escritor
@@ -57,17 +57,28 @@
         <div id="body">
 
             <div>
-                <?php echo $user ?>
+                <?php echo $writer ?>
 
                 <div>
                     <form method="post" action="writer_delete.php">
-                        <input style="display:none" type="text" name="user" value="<?php echo $user?>">
+                        <input style="display:none" type="text" name="writer" value="<?php echo $writer?>">
 
                         <input class="clickbutton" type="submit" value="Borrar Usuario" name="register">
                     </form>
                     <a class="linkbutton" href="writer_list.php"> Lista de Escritores </a>
                 </div>
-
+                <div>
+                <form method="post" action="write_book.php">
+                            <label> Escribe un libro: </label>
+                            <br>
+                              <input style="display:none" type="text" name="writer" value="<?php echo $writer?>">
+                            <label for="book"> Título: </label>
+                            <input type="text" name="book" placeholder="Titulo">
+                            <br>
+                            
+                            <input type="submit" value="Añadir" name="register">
+                        </form>
+                </div>
                 <div style="margin-top:20px;">
 
 
@@ -84,7 +95,7 @@
 
                                 <td>
                                     <form method="post" action="unWrite_book.php">
-                                        <input style="display:none" type="text" name="user" value="<?php echo $user?>">
+                                        <input style="display:none" type="text" name="writer" value="<?php echo $writer?>">
                                         <input style="display:none" type="text" name="book" value="<?php echo $b?>">
                                         <input type="submit" value="X" name="register">
                                     </form>

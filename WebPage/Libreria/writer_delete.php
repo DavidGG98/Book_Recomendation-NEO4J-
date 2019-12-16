@@ -11,9 +11,9 @@
     $message="";
     //Comprobar si se ha mandado registrar un nuevo usuario
 if(isset($_POST['register'])) {
-    $user= $_POST['user'];   
+    $user= $_POST['writer'];   
     //Encontramos el ID del nodo perteneciente a este usuario
-    //$query="MATCH (n:WRITER {name:'$user' }) RETURN n.name, ID(n)";
+    $query="MATCH (n:WRITER {name:'$user' }) RETURN n.name, ID(n)";
     //TODO-> HAY QUE BORRAR LOS LIBROS ESCRITOS POR EL AUTOR O DEJAR QUE RELACIONE NUEVOS LIBROS
     $result=$client->run($query);
     $record=$result->firstRecord();

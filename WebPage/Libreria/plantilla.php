@@ -22,10 +22,10 @@
 </head>
 
 <body>
-        <div id="main">
+    <div id="main">
 
         <div id="topbar"> Recomiendame un libro </div>
-        
+
         <div id="lateralmenu">
             <ul class="menu">
                 <li> <a href="index.php"> Home </a> </li>
@@ -38,45 +38,8 @@
         </div>
 
         <div id="body">
-            <div>
-                <a href="" , class="linkbutton"> Nuevo usuario </a>
-                <a href="" , class="linkbutton"> Borrar usuario </a>
-            </div>
-            <div> </div>
-            <div>
-            <table>
-                <thead>
-                    <th colspan="2"> Lectores </th>
-                </thead>
-                <tbody>
-                    <form action="user_profile.php" method="get">
-                        <?php
-        $count = 1;
-        //Recogemos todos los Usuarios
-        $query= getNodes("READER");
-        $result = $client->run($query);
-        foreach ($result->getRecords() as $records ) {
-          $nombre= $records->get('n')->value('name');
-            if($count==1) {
-          ?>
-                        <!-- Pasamos el nombre como argumento al pulsar el botón -->
-                        
-                        <tr>
-                            <td><button type="submit" name="user" value="<?php echo $nombre ?>"><?php echo $nombre ?> </button></td>
-                            <?php $count=2;
-                        } else if ($count==2) { ?>
-                            <td><button type="submit" name="user" value="<?php echo $nombre ?>"><?php echo $nombre ?> </button>
-                            </td>
-                            </tr>
-                       <?php $count=1;
-                            }
 
-                        } ?>
-                    </form>
-                </tbody>
-            </table>
-            
-            </div>
+
         </div>
     </div>
 

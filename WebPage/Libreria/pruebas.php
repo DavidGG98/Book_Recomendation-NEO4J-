@@ -9,11 +9,12 @@
   $client = ClientBuilder::create()
       ->addConnection('default', 'http://neo4j:david98@localhost:7474')
       ->build();
-if(!isset($_GET['user'])) {
-    $user='David Gonzalez';
-}else {
+     if(isset($_GET['user']) ){
+
     $user=$_GET['user'];
-}
+  } else {
+    $user='David Gonzalez'; //Default user
+  }
     $query=getNeighbors($user);
     $result=$client->run($query);
 
@@ -28,8 +29,19 @@ if(!isset($_GET['user'])) {
     * in the grades [] [] array we introduce the mark given by the user (row) to that book (column)
     * at the end, all the empy columns are placed to 0
     */
-    $row=0; //Users in $userlist
-    $userBooks=0;
+    $row=0; //candidates in $userlist
+    $n=0; //Books for the user
+
+    $query=getBooks($user);
+    $result=$client->run($query); //Cargamos los libros del usuario
+    foreach ($result->getRecords() as $records) {
+        $b=$records->get('b')->value('title'); //Get the book $title
+        $r=$records->get('r')->value('grade'); //Get the relationship grade between the
+        array_push($booklist,$b);
+        $col=array_search($b,$booklist); //get the position
+        $gradematrix [$row][$col] = $r; //add the grade to the matrix
+    }
+
     foreach ($userlist as $u) {
       //Get all the books for the user
       $query=getBooks($u);
@@ -41,17 +53,17 @@ if(!isset($_GET['user'])) {
             $col=array_search($b,$booklist); //get the position
             $gradematrix [$row][$col] = $r; //add the grade to the matrix
             //echo "$b ya existe en la posicion $col, se le añade la nota $r para el usuario $row <br>";
-        } else {
+        } /*else {
           array_push($booklist,$b); //introduce the book into the array
           $col=array_search($b,$booklist); //get the position
           $gradematrix [$row][$col] = $r; //add the grade to the matrix
           //echo "$b se ha creado en la posicion $col, se le añade la nota $r para el usuario $row <br>";
-        }
+        } */
       }
       $row++;
       if($u==$user) {
-        $userBooks=count($booklist);
-        echo "numero de libros para el primer user $userBooks <br>";
+        $n=count($booklist);
+        echo "numero de libros para el primer user $n <br>";
       }
     }
     //Place 0 (not READ) in every gap with no array_count_values

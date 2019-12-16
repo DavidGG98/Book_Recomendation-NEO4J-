@@ -10,8 +10,10 @@
 
     $message="";
     //Guardamos el usuario que está haciendo la petición
-if (isset($_POST['register'])) {
-    $user= $_POST['user'];   
+
+  if(($_POST['user']!="") and ($_POST['book']!="")) {
+
+    $user= $_POST['user'];
     $book= $_POST['book'];
 
 
@@ -21,10 +23,15 @@ if (isset($_POST['register'])) {
     } catch (Exception $e){
         echo "ERROR";
     }
-}
     if (isset($_POST['unRead']))
         header("Location: user_profile.php?user=$user");
     else {
-        header("Location: book_profile.php?user=$book");
+        header("Location: book_profile.php?book=$book");
     }
+} else {
+
+ echo error;
+
+}
+
 ?>
