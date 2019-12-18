@@ -49,3 +49,6 @@ ON MATCH SET r2.grade=line.GRADE2
  
  ##NOTAS##
  Para que la aplicación funcione correctamente, el servidor de neo4j y apache deben estar encendidos.
+ 
+ #Contacto#
+ dgonzg09@estudiantes.unileon.es
