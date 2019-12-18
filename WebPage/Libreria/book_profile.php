@@ -85,7 +85,7 @@
                 <form method="post" action="book_delete.php">
                             <input style="display:none" type="text" name="book" value="<?php echo $nombre?>">
 
-                            <input type="submit" value="Borrar este libro" name="register">
+                            <button class="button delete" type="submit" value="Borrar este libro" name="register"> Borrar Libro </button>
                             </form>
                 <a  class="linkbutton" href="book_list.php"> Lista de Libros </a>
             </div>

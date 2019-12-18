@@ -69,20 +69,24 @@
           </div>
 
           <div id="body">
-              
+ 
               <div>
                   <?php echo $user ?>
                                   
-            <div>
+            <div style="margin-top: 20px">
+                <div style="margin-bottom: 5px">
                 <form method="post" action="user_delete.php">
                             <input style="display:none" type="text" name="user" value="<?php echo $user?>">
 
-                            <input class="clickbutton" type="submit" value="Borrar Usuario" name="register">
+                            <button class="button delete" type="submit" value="Borrar Usuario" name="register"> Borrar user </button>
                             </form>
+                </div>
+                <div style="margin-bottom: 5px">
                 <a  class="linkbutton" href="user_list.php"> Lista de usuarios </a>
+                </div>
             </div>
                   
-                  
+                
                   <div>
                    <form method="post" action="read_book.php">
                             <input style="display:none" type="text" name="user" value="<?php echo $user?>">
@@ -134,7 +138,14 @@
                   </tbody>
                 </table>
               </div>
-                  
+                <div style="margin:20px">
+                    
+              <div style="margin-left=20px; margin-bottom=10px;">
+                <form action="user_recomendation.php" method="get">
+                <button type="submit" name="user" value="<?php echo $user ?>"> Ver recomendación </button>
+                </form>
+              </div>
+                <div style="margin:20px">      
               <table>
                 <?php
                 $query=getNeighbors($user);
@@ -158,21 +169,12 @@
                 <?php } ?>
                 </tbody>
               </table>
-                  
-                  
-              <div>
 
-              </div>
                   
-                  
-              <div>
-                <form action="user_recomendation.php" method="get">
-                <button type="submit" name="user" value="<?php echo $user ?>"> Ver recomendación </button>
-                </form>
-              </div>
-                  
-                  
-          
+            
+                </div>
+            </div>      
+                          
       </div>
   </div>
 </body>

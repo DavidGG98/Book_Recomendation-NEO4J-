@@ -63,7 +63,7 @@
                     <form method="post" action="writer_delete.php">
                         <input style="display:none" type="text" name="writer" value="<?php echo $writer?>">
 
-                        <input class="clickbutton" type="submit" value="Borrar Usuario" name="register">
+                        <button class="button delete" type="submit" value="Borrar Usuario" name="register"> Borrar Escritor </button>
                     </form>
                     <a class="linkbutton" href="writer_list.php"> Lista de Escritores </a>
                 </div>
