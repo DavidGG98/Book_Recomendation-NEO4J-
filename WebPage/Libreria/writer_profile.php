@@ -50,7 +50,7 @@
                 <li> <a href="book_list.php"> Libros </a> </li>
                 <li> <a href="genre_list.php"> Generos </a> </li>
                 <li> <a class="active" href="writer_list.php"> Escritores </a> </li>
-                <li> <a href="index.php"> Contacto </a> </li>
+                
             </ul>
         </div>
 

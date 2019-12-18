@@ -64,7 +64,7 @@
                   <li> <a href="book_list.php"> Libros </a> </li>
                   <li> <a href="genre_list.php"> Generos </a> </li>
                   <li> <a href="writer_list.php"> Escritores </a> </li>
-                  <li> <a href="index.php"> Contacto </a> </li>
+                  
               </ul>
           </div>
 
@@ -161,9 +161,7 @@
                   
                   
               <div>
-              <form action="user_neighbors.php" method="get">
-              <button type="submit" name="user" value="<?php echo $user ?>"> Ver vecinos </button>
-              </form>
+
               </div>
                   
                   

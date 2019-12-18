@@ -1,0 +1,20 @@
+
+LOAD CSV WITH HEADERS FROM 'file:///BOOKS_AND_WRITERS.csv' AS line FIELDTERMINATOR ';'
+UNWIND split(line.Genre, '|') AS genres
+MERGE(w:WRITER {name:line.Writer})
+MERGE(b:BOOK {title:line.Title, pages:line.Pages, rating:line.Rating, rating_count:line.Rating_Count, review_count:line.Review_Count} )
+MERGE(g:GENRE {genre: genres})
+MERGE(w)-[:WROTE]->(b)
+MERGE (b)-[:IS]->(g)
+
+LOAD CSV WITH HEADERS FROM 'file:///USERS.csv' AS line FIELDTERMINATOR ';'
+MERGE(n:READER {name:line.USERS1})
+MERGE(m:READER {name:line.USERS2})
+MERGE(b1:BOOK {title:line.BOOKS1})
+MERGE(b2:BOOK {title:line.BOOKS2})
+MERGE(n)-[r1:READ]->(b1)
+ON CREATE SET r1.grade=line.GRADE1
+ON MATCH SET r1.grade=line.GRADE1
+MERGE(m)-[r2:READ]->(b2)
+ON CREATE SET r2.grade=line.GRADE2
+ON MATCH SET r2.grade=line.GRADE2
